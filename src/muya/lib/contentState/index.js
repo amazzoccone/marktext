@@ -63,7 +63,6 @@ class ContentState {
     this.exemption = new Set()
     this.blocks = [ this.createBlockP() ]
     this.stateRender = new StateRender(muya)
-    this.codeBlocks = new Map()
     this.renderRange = [ null, null ]
     this.currentCursor = null
     // you'll select the outmost block of current cursor when you click the front icon.
@@ -183,7 +182,7 @@ class ContentState {
    * A block in Aganippe present a paragraph(block syntax in GFM) or a line in paragraph.
    * a line block must in a `p block` or `pre block(frontmatter)` and `p block`'s children must be line blocks.
    */
-  createBlock (type = 'span', text = '', editable = true) { // span type means it is a line block.
+  createBlock (type = 'span', text = '', editable = true) {
     const key = getUniqueId()
     return {
       key,
@@ -199,8 +198,8 @@ class ContentState {
 
   createBlockP (text = '') {
     const pBlock = this.createBlock('p')
-    const lineBlock = this.createBlock('span', text)
-    this.appendChild(pBlock, lineBlock)
+    const contentBlock = this.createBlock('span', text)
+    this.appendChild(pBlock, contentBlock)
     return pBlock
   }
 
